@@ -1,2 +1,0 @@
-# mycart
-Mycart Ecommerce Website
