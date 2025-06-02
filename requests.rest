@@ -1,0 +1,23 @@
+POST http://localhost:8000/api/v1/product/new
+
+Content-Type: application/json;
+
+{
+        "name": "OPPO F21s Pro 5G",
+        "price": 245.67,
+        "description": "OPPO F21s Pro 5G is a powerful device with a RAM extension feature, that offers brilliant operational speed to users.",
+        "ratings": 4.5,
+        "images": [
+            {
+                "image": "/images/products/1.jpg"
+            },
+            {
+                "image": "/images/products/2.jpg"
+            }
+        ],
+        "category": "Mobile Phones",
+        "seller": "Amazon",
+        "stock": 5,
+        "numOfReviews": 15,
+        "reviews": []
+    }
