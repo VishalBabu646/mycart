@@ -1,11 +1,11 @@
-const Product = require('../models/productModel');
+const Product = require('../models/productModel')
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncError = require('../middlewares/catchAsyncError');
 const APIFeatures = require('../utils/apiFeatures');
 
 exports.getProducts = async(req,res,next) => {
     const resPerPage = 3;
-    const apiFeatures = new APIFeatures(Product.find(),req.query).search().filter().paginate(resPerPage);
+    const apiFeatures = new APIFeatures(Product.find(),req.query).search().filter().paginate(resP);
     const product = await apiFeatures.query;
     res.status(200).json(
     {
