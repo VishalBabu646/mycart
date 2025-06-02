@@ -20,12 +20,35 @@ class apiFeatures{
 
     }
      filter(){
-        const queryStrCopy = {...this.queryStr};
-        const removeFields = ['keyword','page','limit'];
+        const queryStrCopy = { ...this.queryStr };
+        const removeFields = ['keyword', 'limit', 'page'];
         removeFields.forEach(field => delete queryStrCopy[field]);
-        this.query.find(queryStrCopy);
-        return this;
-    }
-}
 
+        const mongoQuery = {};
+
+        for (const key in queryStrCopy) {
+            const match = key.match(/^(.+)\[(.+)\]$/);
+            if (match) {
+                const field = match[1];      
+                const operator = `$${match[2]}`; 
+                if (!mongoQuery[field]) {
+                mongoQuery[field] = {};
+                }
+
+                mongoQuery[field][operator] = isNaN(queryStrCopy[key])
+                ? queryStrCopy[key]
+                : Number(queryStrCopy[key]);
+            } else {
+                mongoQuery[key] = isNaN(queryStrCopy[key])
+                ? queryStrCopy[key]
+                : Number(queryStrCopy[key]);
+            }
+            }
+
+        this.query.find(mongoQuery);
+
+        return this;
+
+}
+}
 module.exports = apiFeatures;
