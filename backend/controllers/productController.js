@@ -5,7 +5,7 @@ const APIFeatures = require('../utils/apiFeatures');
 
 exports.getProducts = async(req,res,next) => {
     const resPerPage = 3;
-    const apiFeatures = new APIFeatures(Product.find(),req.query).search().filter().paginate(resP);
+    const apiFeatures = new APIFeatures(Product.find(),req.query).search().filter().paginate(resPerPage);
     const product = await apiFeatures.query;
     res.status(200).json(
     {
@@ -44,6 +44,7 @@ exports.getsingleProduct = async(req,res,next) => {
 
 //Update Product {{base_url}}/api/v1/productsingle/68389f52b0ce3da1fc27d96d
 exports.updateProduct = async(req,res,next) => {
+    // console.log('Hello from Upadet product!')
     let product = await Product.findById(req.params.id);
     if(!product){
             return res.status(404).json({
