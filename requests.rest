@@ -21,3 +21,23 @@ Content-Type: application/json;
         "numOfReviews": 15,
         "reviews": []
     }
+
+###
+
+POST http://localhost:8000/api/v1/login
+
+Content-Type: application/json
+
+{
+ name : "Vishal Babu S",
+ email: "vishal646@gmail.com",
+ password: "hello45jrhtgo4"   
+}
+### Login User
+POST http://localhost:8000/api/v1/login
+Content-Type: application/json
+
+{
+  "email": "vishal646@gmail.com",
+  "password": "hello45jrhtgo4"
+}

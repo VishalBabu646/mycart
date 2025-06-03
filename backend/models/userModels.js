@@ -43,6 +43,12 @@ userSchema.methods.getJwtToken = function(){
     return jwt.sign({id:this.id},process.env.JWT_SECRET_KEY,{expiresIn : process.env.JWT_EXPIRES_TIME});
 }
 
+
+userSchema.methods.isValidPassword = async function(enteredpassword){
+    console.log('before bcrypt compare');
+    return await bcrypt.compare(enteredpassword,this.password);
+    console.log('After Bcrypt Compare');
+}
 let model = mongoose.model('User',userSchema);
 
 module.exports = model;
