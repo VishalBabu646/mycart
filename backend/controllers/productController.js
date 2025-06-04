@@ -19,6 +19,7 @@ exports.getProducts = async(req,res,next) => {
 //Create Product {{base-url}}/api/v1/products/new
 exports.getNewProduct = async (req,res,next) => {
     req.body.user = req.user;
+    console.log(req,'user',req.user,'body',req.body);
     const product = await Product.create(req.body);
     res.status(201).json({
         success: true,

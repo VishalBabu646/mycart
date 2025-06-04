@@ -1,5 +1,6 @@
 const catchAsyncError = require("../middlewares/catchAsyncError");
 const User = require("../models/userModels");
+const sendEmail = require("../utils/email");
 const ErrorHandler = require("../utils/errorHandler");
 const sendToken = require("../utils/jwt");
 
@@ -45,3 +46,48 @@ exports.logOutUser = (req,res,next) => {
     message:"Logged out successfully"
   });
 }
+
+exports.forgotPassword = catchAsyncError(async(req,res,next) => {
+  console.log(req.body.email);
+  const user = await User.findOne({email: req.body.email});
+  console.log(user);
+  if(!user) return next(new ErrorHandler('Given email is not found',404));
+  const resetToken = user.getResetToken();
+ 
+  await user.save({validateBeforeSave: false});
+  
+
+  const resetUrl = `${req.protocol}://${req.body.host}/password/reset/${resetToken}`;
+
+  const message = `Your Password reset url is as follows \n \n ${resetUrl} \n \n  If you have not requested this email please ignore it.`;
+  console.log('Here')
+
+  console.log("User:", process.env.SMTP_USER);
+console.log("Pass:", process.env.SMTP_PASS);
+console.log("SMTP_HOST:", process.env.SMTP_HOST);
+console.log("SMTP_PORT:", process.env.SMTP_PORT);
+console.log("SMTP_USER:", process.env.SMTP_USER);
+console.log("SMTP_PASS:", process.env.SMTP_PASS);
+
+
+  try{
+    sendEmail({
+      email: user.email,
+      subject: "Mycart password Recovery",
+      message
+
+    })
+
+    res.status(200).json({
+      success: true,
+      messsage: `Email sent to ${user.email}`
+    })
+  }
+  catch(error){
+      user.resetPasswordToken = undefined;
+      user.resetPasswordTokenExpire = undefined,
+      await user.save({validateBeforeSave : false});
+      return next(new ErrorHandler('error.message',500));
+    }
+  }
+);
