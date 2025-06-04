@@ -18,7 +18,7 @@ exports.getProducts = async(req,res,next) => {
 
 //Create Product {{base-url}}/api/v1/products/new
 exports.getNewProduct = async (req,res,next) => {
-    console.log("getNewProduct is called")
+    req.body.user = req.user;
     const product = await Product.create(req.body);
     res.status(201).json({
         success: true,
