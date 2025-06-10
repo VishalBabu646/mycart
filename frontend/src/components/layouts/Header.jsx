@@ -4,7 +4,7 @@ const Header = () => {
   return (
     <>
         <nav className="navbar row">
-      <div classNameName="col-12 col-md-3">
+      <div className="col-12 col-md-3">
         <div className="navbar-brand">
           <img width="150px" src="./images/logo.png" />
         </div>

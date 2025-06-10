@@ -5,6 +5,9 @@ import Footer from './components/layouts/Footer'
 import Home from './components/Home'
 import {BrowserRouter as Router,Route, Routes} from 'react-router-dom'
 import {HelmetProvider} from 'react-helmet-async'
+import { ToastContainer } from 'react-toastify'
+
+
 
 function App() {
 
@@ -14,6 +17,7 @@ function App() {
       <>
         <HelmetProvider>
           <Header/>
+          <ToastContainer theme='dark'/>
           <Routes>
             <Route path='/' element={<Home/>}>
             </Route>

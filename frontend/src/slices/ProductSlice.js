@@ -21,7 +21,7 @@ const productsSlice = createSlice({
         productFail(state,action){
             return {
                 loading : false,
-                products : action.payload
+                error : action.payload
             }
         }
     }
